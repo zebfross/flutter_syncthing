@@ -57,4 +57,8 @@ class FlutterSyncthing {
   Future<String?> getPlatformVersion() {
     return FlutterSyncthingPlatform.instance.getPlatformVersion();
   }
+
+  Future<String> getDeviceId() async {
+    return await _stringResponse('getDeviceId', Uint8List(0));
+  }
 }

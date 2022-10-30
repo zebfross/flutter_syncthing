@@ -48,15 +48,23 @@ android {
             }
         }
     }
-    
-    externalNativeBuild {
-    cmake {
-        path file('CMakeLists.txt')
-        version '3.18.1'
-    }
-    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+task nativeLibsToJar(type: Jar, description: 'create a jar archive of the native libs') {
+    destinationDir file("$buildDir/native-libs")
+    baseName 'native-libs'
+    from fileTree(dir: 'libs', include: '**/*.so')
+    into 'lib/'
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn(nativeLibsToJar)
+}
+
+dependencies {
+    api fileTree(dir: "$buildDir/native-libs", include: 'native-libs.jar')
 }

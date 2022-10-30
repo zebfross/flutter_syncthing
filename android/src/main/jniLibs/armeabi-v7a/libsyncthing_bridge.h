@@ -74,7 +74,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern BytesReturn* SyncthingCall(char* name, void* payload, int payloadSize);
+extern BytesReturn* SyncthingBridgeCall(char* name, void* payload, int payloadSize);
 
 #ifdef __cplusplus
 }
